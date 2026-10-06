@@ -73,7 +73,25 @@ Evidencia detallada: [verificacion.md](verificacion.md),
 Fecha límite mostrada en la captura: lunes 5 de octubre de 2026, 23:59.
 Las capturas indican un valor total de tres puntos, sin un desglose de criterios o pesos.
 
-## Límites que no son requisitos explícitos del diagrama
+## Revisión de publicación segura ética y profesional
+
+- [x] Búsqueda de patrones comunes de tokens y claves privadas en los tres commits publicados al momento de la revisión, sin coincidencias.
+      Esta búsqueda no equivale a una auditoría completa ni garantiza ausencia de todos los tipos de secretos.
+- [x] Word académico, bases de datos locales, archivos de entorno y claves privadas fuera de los archivos versionados revisados.
+- [x] Cuentas y datos de prueba identificados como demostración; las contraseñas publicadas corresponden a esas cuentas locales.
+- [x] Resultados respaldados por capturas y reportes reales; alcance Android debug y límites de validación declarados.
+- [x] README técnico con comandos de instalación, compilación y pruebas; estructura de código y evidencias organizada.
+- [ ] Completar las atribuciones de terceros: conservar el crédito de Expo y adjuntar la licencia Apache 2.0 y la atribución de Impeccable.
+      El LICENSE actual conserva el aviso MIT de Expo; los archivos de Impeccable declaran Apache 2.0 sin una licencia completa separada en el repositorio.
+- [ ] Añadir descripción y temas al apartado About de GitHub.
+- [ ] Confirmar las reglas del curso sobre asistencia de IA y declarar su uso cuando corresponda.
+      La conformidad académica depende de las indicaciones del docente.
+- [ ] Sustituir el hash SHA-256 con prefijo fijo por un mecanismo de almacenamiento de contraseñas apropiado si se prepara una versión con usuarios reales.
+      La autenticación actual está declarada como demostración local.
+
+La revisión de publicación comprobó archivos e historial para los aspectos indicados; no fue una auditoría completa de seguridad de la aplicación.
+
+## Validaciones adicionales antes de producción
 
 - [ ] Revisar los 29 avisos transitivos de dependencias antes de un uso en producción.
 - [ ] Validar iOS, hardware real, TalkBack, tablets y build release si se amplía ese alcance.
@@ -85,4 +103,6 @@ la app a web ni añadir funciones ajenas al diagrama para cubrir los requisitos 
 evidencia y están publicados en GitHub. El Word de entrega está completado y revisado.
 Falta verificar la entrega formal, la apertura de los HTML
 en el equipo del evaluador y cualquier criterio adicional.
-No es posible garantizar 3/3 puntos sin la rúbrica completa y la evaluación del docente.
+También quedan pendientes las atribuciones de terceros y la presentación About del repositorio.
+No es posible garantizar 3/3 puntos sin la rúbrica completa y la evaluación del docente,
+ni presentar esta revisión como una certificación de seguridad para producción.
