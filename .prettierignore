@@ -1,0 +1,12 @@
+node_modules
+.expo
+dist
+android
+ios
+.github/agents/**
+.github/skills/**
+package-lock.json
+assets
+docs/e2e/screenshots
+docs/e2e/reports
+docs/e2e/runs

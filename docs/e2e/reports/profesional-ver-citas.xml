@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<testsuites>
+  <testsuite name="Test Suite" device="Pixel_7_API_34" tests="1" failures="0" time="74.736" timestamp="2026-10-05T22:48:28">
+    <testcase id="Profesional consulta y gestiona citas" name="Profesional consulta y gestiona citas" classname="Profesional consulta y gestiona citas" file=".maestro\profesional-ver-citas.yaml" time="74.703" timestamp="2026-10-05T22:48:28" status="SUCCESS"/>
+  </testsuite>
+</testsuites>

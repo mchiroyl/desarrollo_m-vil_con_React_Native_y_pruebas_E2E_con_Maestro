@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Arquitectura técnica de Glowbook: app Expo, React Query, SQLite y pruebas Maestro."
+    />
+    <title>Arquitectura técnica · Glowbook</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #202a27;
+        --muted: #66736d;
+        --paper: #f4f7f3;
+        --surface: #fff;
+        --line: #dce5dc;
+        --green: #24594e;
+        --coral: #e96f55;
+        --gold: #f3c95b;
+        --blue: #3b7890;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font:
+          15px/1.55 'Segoe UI',
+          sans-serif;
+      }
+      header {
+        background: var(--green);
+        color: #fff;
+        padding: 38px max(24px, calc((100vw - 1080px) / 2));
+      }
+      header p {
+        margin: 0 0 6px;
+        color: #c7ded3;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+      h1 {
+        margin-bottom: 8px;
+        font:
+          700 34px/1.1 Georgia,
+          serif;
+      }
+      header .lead {
+        max-width: 680px;
+        margin: 0;
+        color: #e2eee7;
+      }
+      main {
+        width: min(1080px, calc(100% - 40px));
+        margin: 28px auto 60px;
+      }
+      section {
+        margin: 0 0 22px;
+        padding: 24px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+      }
+      h2 {
+        margin-bottom: 14px;
+        font-size: 19px;
+      }
+      h3 {
+        margin-bottom: 6px;
+        font-size: 14px;
+      }
+      .meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 18px;
+      }
+      .tag {
+        padding: 5px 10px;
+        border-radius: 99px;
+        background: #e6f1ea;
+        color: var(--green);
+        font-size: 11px;
+        font-weight: 800;
+      }
+      .diagram {
+        overflow-x: auto;
+        padding: 10px 0;
+      }
+      svg {
+        display: block;
+        width: 100%;
+        min-width: 700px;
+        height: auto;
+      }
+      .node {
+        fill: #fff;
+        stroke: #cddbd0;
+        stroke-width: 1.5;
+      }
+      .node-primary {
+        fill: #e8f2eb;
+        stroke: #86ad98;
+      }
+      .node-accent {
+        fill: #fce9e2;
+        stroke: #e8a38f;
+      }
+      .node-data {
+        fill: #eaf1f4;
+        stroke: #91b1be;
+      }
+      .node-title {
+        fill: #202a27;
+        font:
+          700 14px 'Segoe UI',
+          sans-serif;
+      }
+      .node-copy {
+        fill: #66736d;
+        font:
+          12px 'Segoe UI',
+          sans-serif;
+      }
+      .arrow {
+        stroke: #648d79;
+        stroke-width: 2;
+        fill: none;
+        marker-end: url(#arrow);
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+      .item {
+        padding: 16px;
+        border-left: 3px solid var(--coral);
+        background: #fbfcfa;
+      }
+      .item p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+      }
+      th,
+      td {
+        padding: 10px 8px;
+        border-bottom: 1px solid var(--line);
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        color: var(--green);
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+      }
+      code {
+        color: #285d52;
+        font:
+          12px Consolas,
+          monospace;
+      }
+      .note {
+        color: var(--muted);
+        font-size: 12px;
+      }
+      footer {
+        padding: 18px 24px;
+        color: var(--muted);
+        text-align: center;
+        font-size: 11px;
+      }
+      @media (max-width: 680px) {
+        header {
+          padding: 30px 22px;
+        }
+        h1 {
+          font-size: 29px;
+        }
+        main {
+          width: calc(100% - 24px);
+          margin-top: 12px;
+        }
+        section {
+          padding: 18px;
+        }
+        .grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <p>Glowbook · Documento técnico</p>
+      <h1>Arquitectura de la aplicación</h1>
+      <p class="lead">
+        Una app Expo local-first para descubrir profesionales, reservar horarios y gestionar citas,
+        con una capa E2E independiente del backend.
+      </p>
+      <div class="meta">
+        <span class="tag">React Native + Expo Router</span><span class="tag">SQLite local</span
+        ><span class="tag">Maestro E2E</span><span class="tag">Lectura: 4 minutos</span>
+      </div>
+    </header>
+    <main>
+      <section>
+        <h2>1. Componentes y dependencias</h2>
+        <div class="diagram">
+          <svg
+            viewBox="0 0 1000 310"
+            role="img"
+            aria-labelledby="architecture-title architecture-desc"
+          >
+            <title id="architecture-title">Capas técnicas de Glowbook</title>
+            <desc id="architecture-desc">
+              Expo Router presenta vistas que consultan React Query. Los hooks llaman al repositorio
+              SQLite; Zustand conserva solo estado efímero de interfaz.
+            </desc>
+            <defs>
+              <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                <path d="M0 0L8 4L0 8" fill="#648d79" />
+              </marker>
+            </defs>
+            <rect class="node-primary" x="20" y="50" width="205" height="100" rx="12" />
+            <text class="node-title" x="42" y="82">Expo Router · UI</text>
+            <text class="node-copy" x="42" y="106">Auth · cliente · profesional</text>
+            <text class="node-copy" x="42" y="126">StyleSheet · testID</text>
+            <rect class="node" x="280" y="50" width="205" height="100" rx="12" />
+            <text class="node-title" x="302" y="82">React Query</text>
+            <text class="node-copy" x="302" y="106">Consultas y mutaciones</text>
+            <text class="node-copy" x="302" y="126">Invalidación de agenda</text>
+            <rect class="node-accent" x="540" y="50" width="205" height="100" rx="12" />
+            <text class="node-title" x="562" y="82">Repositorio</text>
+            <text class="node-copy" x="562" y="106">SQL parametrizado</text>
+            <text class="node-copy" x="562" y="126">Reglas de disponibilidad</text>
+            <rect class="node-data" x="800" y="50" width="180" height="100" rx="12" />
+            <text class="node-title" x="820" y="82">expo-sqlite</text>
+            <text class="node-copy" x="820" y="106">DB local y persistente</text>
+            <text class="node-copy" x="820" y="126">FK · índice único</text>
+            <path class="arrow" d="M225 100H272" />
+            <path class="arrow" d="M485 100H532" />
+            <path class="arrow" d="M745 100H792" />
+            <rect class="node" x="280" y="210" width="205" height="72" rx="12" />
+            <text class="node-title" x="302" y="240">Zustand</text>
+            <text class="node-copy" x="302" y="261">Filtros y mensajes efímeros</text>
+            <path class="arrow" d="M123 150V246H272" />
+            <rect class="node-primary" x="540" y="210" width="440" height="72" rx="12" />
+            <text class="node-title" x="562" y="240">Maestro · capa de aceptación</text>
+            <text class="node-copy" x="562" y="261">
+              Flows YAML interactúan por árbol de accesibilidad e IDs estables
+            </text>
+            <path class="arrow" d="M642 150V202" />
+          </svg>
+        </div>
+      </section>
+
+      <section>
+        <h2>2. Persistencia y modelo</h2>
+        <div class="grid">
+          <div class="item">
+            <h3>Esquema v2</h3>
+            <p>
+              <code>users</code>, <code>professionals</code>, <code>categories</code>,
+              <code>services</code>, <code>availability</code>, <code>appointments</code> y
+              <code>app_session</code>. Las claves foráneas vinculan las entidades.
+            </p>
+          </div>
+          <div class="item">
+            <h3>Integridad de horarios</h3>
+            <p>
+              Un índice parcial impide dos citas pendientes/confirmadas en el mismo slot. La reserva
+              valida solapamientos por duración tanto del profesional como del cliente en una
+              transacción exclusiva. Las citas canceladas liberan el horario.
+            </p>
+          </div>
+          <div class="item">
+            <h3>Inicialización</h3>
+            <p>
+              <code>SQLiteProvider</code> corre el esquema con <code>PRAGMA user_version</code>,
+              aplica las migraciones y su versión en una transacción, crea el seed idempotente y
+              mantiene datos entre reinicios. Renueva diez días de disponibilidad al abrir la app y
+              consultar horarios; elimina disponibilidad vencida.
+            </p>
+          </div>
+          <div class="item">
+            <h3>Autenticación mock</h3>
+            <p>
+              Cuenta local, sesión y contraseña hasheada para demostración. Sin backend, sal,
+              control de intentos ni recuperación; no es apta para producción.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>3. Flujo de reserva</h2>
+        <div class="diagram">
+          <svg viewBox="0 0 1000 165" role="img" aria-labelledby="booking-title booking-desc">
+            <title id="booking-title">Flujo de reserva</title>
+            <desc id="booking-desc">
+              Cliente selecciona profesional, servicio y slot; SQLite valida y persiste; React Query
+              refresca agenda y el profesional gestiona el estado.
+            </desc>
+            <defs>
+              <marker id="arrow2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                <path d="M0 0L8 4L0 8" fill="#648d79" />
+              </marker>
+            </defs>
+            <g fill="none" stroke="#648d79" stroke-width="2" marker-end="url(#arrow2)">
+              <path d="M175 75H222" />
+              <path d="M395 75H442" />
+              <path d="M615 75H662" />
+              <path d="M835 75H882" />
+            </g>
+            <rect class="node-primary" x="10" y="34" width="165" height="82" rx="12" />
+            <text class="node-title" x="29" y="66">Explorar</text>
+            <text class="node-copy" x="29" y="89">Profesional y servicio</text>
+            <rect class="node" x="230" y="34" width="165" height="82" rx="12" />
+            <text class="node-title" x="249" y="66">Elegir slot</text>
+            <text class="node-copy" x="249" y="89">Fecha y horario libre</text>
+            <rect class="node-accent" x="450" y="34" width="165" height="82" rx="12" />
+            <text class="node-title" x="469" y="66">Validar</text>
+            <text class="node-copy" x="469" y="89">Disponibilidad + unicidad</text>
+            <rect class="node-data" x="670" y="34" width="165" height="82" rx="12" />
+            <text class="node-title" x="689" y="66">Guardar</text>
+            <text class="node-copy" x="689" y="89">Estado pendiente</text>
+            <rect class="node-primary" x="890" y="34" width="100" height="82" rx="12" />
+            <text class="node-title" x="904" y="66">Gestionar</text>
+            <text class="node-copy" x="904" y="88">Confirmar</text>
+            <text class="node-copy" x="904" y="105">o cancelar</text>
+          </svg>
+        </div>
+      </section>
+
+      <section>
+        <h2>4. Librerías, flujos y patrones</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Elemento</th>
+              <th>Responsabilidad</th>
+              <th>Patrón aplicado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Expo Router</td>
+              <td>Rutas declarativas por archivo</td>
+              <td>Stack.Protected por sesión y rol, incluso en enlaces directos</td>
+            </tr>
+            <tr>
+              <td>React Query</td>
+              <td>Estado de consultas/mutaciones y refresco</td>
+              <td>Invalidación por claves de consulta</td>
+            </tr>
+            <tr>
+              <td>Repository + expo-sqlite</td>
+              <td>Consultas locales y reglas de dominio</td>
+              <td>SQL parametrizado, FK e índice único</td>
+            </tr>
+            <tr>
+              <td>Zustand</td>
+              <td>Mensajes transitorios y filtro de categoría</td>
+              <td>Estado de UI separado de persistencia</td>
+            </tr>
+            <tr>
+              <td>Maestro + Gherkin</td>
+              <td>Automatización ejecutable y especificación legible</td>
+              <td>Flows independientes con reset de datos</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="note">
+          Los escenarios Gherkin describen el comportamiento; Maestro ejecuta YAML nativo. Los tres
+          flows y su estado de ejecución están documentados en el artefacto E2E.
+        </p>
+      </section>
+      <section>
+        <h2>5. Relaciones de datos</h2>
+        <div class="diagram">
+          <svg viewBox="0 0 1000 220" role="img" aria-label="Modelo relacional de SQLite">
+            <g fill="none" stroke="#648d79" stroke-width="2">
+              <path
+                d="M160 65H210M370 65H420M580 65H630M80 30V10H920V30M290 100V150M80 100V215H670V100M500 100V150M290 100V120H710V100M290 100V130H500V150"
+              />
+            </g>
+            <rect class="node-primary" x="0" y="30" width="160" height="70" rx="12" />
+            <text class="node-title" x="20" y="58">users</text>
+            <text class="node-copy" x="20" y="80">cliente / profesional</text>
+            <rect class="node" x="210" y="30" width="160" height="70" rx="12" />
+            <text class="node-title" x="230" y="70">professionals</text>
+            <rect class="node" x="420" y="30" width="160" height="70" rx="12" />
+            <text class="node-title" x="440" y="70">services</text>
+            <rect class="node-data" x="630" y="30" width="160" height="70" rx="12" />
+            <text class="node-title" x="650" y="70">appointments</text>
+            <rect class="node" x="840" y="30" width="160" height="70" rx="12" />
+            <text class="node-title" x="860" y="70">app_session</text>
+            <rect class="node" x="210" y="150" width="160" height="60" rx="12" />
+            <text class="node-title" x="230" y="187">availability</text>
+            <rect class="node-accent" x="420" y="150" width="160" height="60" rx="12" />
+            <text class="node-title" x="440" y="187">categories</text>
+          </svg>
+        </div>
+        <p>
+          Un usuario profesional tiene un perfil; el perfil tiene servicios y disponibilidad. Cada
+          cita une un cliente, un profesional y un servicio. La sesión referencia un usuario. Las
+          categorías clasifican perfiles y servicios.
+        </p>
+      </section>
+      <section>
+        <h2>6. Proceso E2E reproducible</h2>
+        <div class="diagram">
+          <svg viewBox="0 0 1000 100" role="img" aria-label="Proceso de pruebas Maestro">
+            <path d="M220 50H270M490 50H540M760 50H810" stroke="#648d79" stroke-width="2" />
+            <rect class="node" x="0" y="10" width="220" height="80" rx="12" />
+            <text class="node-title" x="18" y="43">Instalar APK propio</text>
+            <text class="node-copy" x="18" y="66">com.glowbook.app</text>
+            <rect class="node" x="270" y="10" width="220" height="80" rx="12" />
+            <text class="node-title" x="288" y="43">Restablecer datos</text>
+            <text class="node-copy" x="288" y="66">clearState + seed</text>
+            <rect class="node-primary" x="540" y="10" width="220" height="80" rx="12" />
+            <text class="node-title" x="558" y="43">Ejecutar flow YAML</text>
+            <text class="node-copy" x="558" y="66">testID + aserciones</text>
+            <rect class="node-data" x="810" y="10" width="190" height="80" rx="12" />
+            <text class="node-title" x="828" y="43">Evidencia real</text>
+            <text class="node-copy" x="828" y="66">PNG + JUnit + logs</text>
+          </svg>
+        </div>
+        <p>
+          <a href="e2e/escenarios.html">Escenarios y evidencia E2E</a> ·
+          <a href="auditoria-nativa.md">Auditoría nativa con Impeccable</a>
+        </p>
+      </section>
+    </main>
+    <footer>Glowbook · React Native · Expo · Documento técnico local</footer>
+  </body>
+</html>

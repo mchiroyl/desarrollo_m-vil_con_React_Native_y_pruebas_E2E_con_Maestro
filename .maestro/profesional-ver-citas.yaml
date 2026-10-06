@@ -1,0 +1,73 @@
+appId: com.glowbook.app
+name: Profesional consulta y gestiona citas
+---
+# Reset local data to make the professional demo account available.
+- launchApp:
+    clearState: true
+# Open the shared login screen and choose the professional role.
+- scrollUntilVisible:
+    element:
+      id: welcome-login
+    direction: DOWN
+- tapOn:
+    id: welcome-login
+- tapOn:
+    id: login-role-professional
+# Enter the seeded professional credentials.
+- tapOn:
+    id: login-email
+- inputText: profesional@glowbook.app
+- hideKeyboard
+- scrollUntilVisible:
+    element:
+      id: login-password
+    direction: DOWN
+- tapOn:
+    id: login-password
+- inputText: Glowbook2026!
+- hideKeyboard
+- scrollUntilVisible:
+    element:
+      id: login-submit
+    direction: DOWN
+- tapOn:
+    id: login-submit
+# Verify the professional dashboard and open a seeded appointment.
+- assertVisible:
+    id: dashboard-pending-count
+- scrollUntilVisible:
+    element:
+      id: appointment-card-appointment-demo-cut
+    direction: DOWN
+- tapOn:
+    id: appointment-card-appointment-demo-cut
+# Verify the appointment detail and capture its actionable state.
+- scrollUntilVisible:
+    element:
+      id: appointment-confirm
+    direction: DOWN
+- assertVisible:
+    id: appointment-confirm
+- assertVisible:
+    id: appointment-cancel
+# Confirm a pending appointment, then cancel the confirmed appointment.
+- tapOn:
+    id: appointment-confirm
+- assertVisible:
+    id: appointment-confirm-dialog
+- tapOn:
+    id: appointment-confirm-dialog-proceed
+- assertNotVisible:
+    id: appointment-confirm
+- tapOn:
+    id: appointment-cancel
+- assertVisible:
+    id: appointment-cancel-dialog
+- tapOn:
+    id: appointment-cancel-dialog-proceed
+- assertNotVisible:
+    id: appointment-cancel
+- assertVisible:
+    id: appointment-back-dashboard
+- takeScreenshot:
+    path: profesional-ver-citas

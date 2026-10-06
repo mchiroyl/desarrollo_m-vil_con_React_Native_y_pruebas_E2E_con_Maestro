@@ -1,0 +1,80 @@
+appId: com.glowbook.app
+name: Inicio de sesión y citas del cliente
+---
+# Reset the application so the demo bookings are seeded consistently.
+- launchApp:
+    clearState: true
+# Wait for native initialization before opening a protected link.
+- extendedWaitUntil:
+    visible:
+      id: welcome-role-client
+    timeout: 120000
+# A direct client route must not bypass authentication.
+- openLink: glowbook://client/home
+- assertVisible:
+    id: welcome-register
+# Open the shared login form for a client.
+- scrollUntilVisible:
+    element:
+      id: welcome-login
+    direction: DOWN
+- tapOn:
+    id: welcome-login
+- tapOn:
+    id: login-role-client
+# Enter the seeded client credentials.
+- tapOn:
+    id: login-email
+- inputText: cliente@glowbook.app
+- hideKeyboard
+- scrollUntilVisible:
+    element:
+      id: login-password
+    direction: DOWN
+- tapOn:
+    id: login-password
+- inputText: Glowbook2026!
+- hideKeyboard
+- scrollUntilVisible:
+    element:
+      id: login-submit
+    direction: DOWN
+- tapOn:
+    id: login-submit
+# Confirm discovery loads and navigate to the client's appointments.
+- assertVisible:
+    id: category-barberia
+# A client must not access professional routes through a deep link.
+- openLink: glowbook://professional/dashboard
+- assertNotVisible:
+    id: dashboard-pending-count
+- assertVisible:
+    id: nav-my-bookings
+- tapOn:
+    id: nav-my-bookings
+# Find a seeded booking and capture the client's schedule.
+- scrollUntilVisible:
+    element:
+      id: appointment-card-appointment-demo-cut
+    direction: DOWN
+- assertVisible:
+    id: appointment-card-appointment-demo-cut
+# Restart without clearing data to verify the local session and appointments persist.
+- stopApp
+- launchApp
+- extendedWaitUntil:
+    visible:
+      id: nav-my-bookings
+    timeout: 120000
+- assertVisible:
+    id: nav-my-bookings
+- tapOn:
+    id: nav-my-bookings
+- scrollUntilVisible:
+    element:
+      id: appointment-card-appointment-demo-cut
+    direction: DOWN
+- assertVisible:
+    id: appointment-card-appointment-demo-cut
+- takeScreenshot:
+    path: cliente-login-y-mis-citas

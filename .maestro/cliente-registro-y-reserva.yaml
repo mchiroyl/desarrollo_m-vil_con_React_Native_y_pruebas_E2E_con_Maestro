@@ -1,0 +1,95 @@
+appId: com.glowbook.app
+name: Registro de cliente y reserva
+---
+# Start from a clean local database so registration can be repeated.
+- launchApp:
+    clearState: true
+# Wait for native initialization and SQLite before interacting with the welcome screen.
+- extendedWaitUntil:
+    visible:
+      id: welcome-role-client
+    timeout: 120000
+# Open the shared account creation form.
+- scrollUntilVisible:
+    element:
+      id: welcome-register
+    direction: DOWN
+- tapOn:
+    id: welcome-register
+# Select the client role and complete the registration form.
+- tapOn:
+    id: register-role-client
+- tapOn:
+    id: register-name
+- inputText: Valentina E2E
+- hideKeyboard
+- scrollUntilVisible:
+    element:
+      id: register-email
+    direction: DOWN
+- tapOn:
+    id: register-email
+- inputText: valentina.e2e@glowbook.app
+- hideKeyboard
+- scrollUntilVisible:
+    element:
+      id: register-password
+    direction: DOWN
+- tapOn:
+    id: register-password
+- inputText: Glowbook2026!
+- hideKeyboard
+- scrollUntilVisible:
+    element:
+      id: register-submit
+    direction: DOWN
+- tapOn:
+    id: register-submit
+# Confirm the client reaches professional discovery.
+- assertVisible:
+    id: category-barberia
+# Filter the directory to barbers and find the seeded professional.
+- tapOn:
+    id: category-barberia
+- scrollUntilVisible:
+    element:
+      id: professional-card-professional-demo
+    direction: DOWN
+# Open the booking form and select a service, date, and free time.
+- tapOn:
+    id: professional-card-professional-demo
+- assertVisible:
+    id: booking-service-service-cut
+- tapOn:
+    id: booking-service-service-cut
+- tapOn:
+    id: booking-date-first
+- scrollUntilVisible:
+    element:
+      id: booking-slot-0900
+    direction: DOWN
+- tapOn:
+    id: booking-slot-0900
+# Submit the reservation and verify it appears in the client's schedule.
+- scrollUntilVisible:
+    element:
+      id: booking-submit
+    direction: DOWN
+- tapOn:
+    id: booking-submit
+- assertVisible:
+    id: booking-confirm-dialog
+- tapOn:
+    id: booking-confirm-dialog-proceed
+- assertVisible:
+    id: nav-my-bookings
+- scrollUntilVisible:
+    element:
+      id: 'appointment-card-.*'
+    direction: DOWN
+- assertVisible:
+    id: 'appointment-card-.*'
+- assertVisible:
+    id: 'appointment-card-.*'
+- takeScreenshot:
+    path: cliente-registro-y-reserva

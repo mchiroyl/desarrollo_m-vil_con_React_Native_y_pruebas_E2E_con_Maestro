@@ -1,0 +1,26 @@
+{
+  "verifiedAt": "2026-10-06T04:52:28.4887081Z",
+  "results": [
+    {
+      "command": "npm run typecheck",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run lint",
+      "exitCode": 0
+    },
+    {
+      "tests": 12,
+      "exitCode": 0,
+      "command": "npm run test:unit"
+    },
+    {
+      "command": "npm run format:check",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run verify:artifacts",
+      "exitCode": 0
+    }
+  ]
+}

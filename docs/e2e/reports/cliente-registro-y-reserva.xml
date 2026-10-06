@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<testsuites>
+  <testsuite name="Test Suite" device="Pixel_7_API_34" tests="1" failures="0" time="91.915" timestamp="2026-10-05T22:46:41">
+    <testcase id="Registro de cliente y reserva" name="Registro de cliente y reserva" classname="Registro de cliente y reserva" file=".maestro\cliente-registro-y-reserva.yaml" time="91.884" timestamp="2026-10-05T22:46:41" status="SUCCESS"/>
+  </testsuite>
+</testsuites>

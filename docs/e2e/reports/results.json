@@ -1,0 +1,32 @@
+{
+  "generatedAt": "2026-10-06T04:51:16.142Z",
+  "results": [
+    {
+      "flow": "cliente-registro-y-reserva",
+      "passed": true,
+      "exitCode": 0,
+      "startedAt": "2026-10-06T04:46:26.980Z",
+      "finishedAt": "2026-10-06T04:48:14.708Z",
+      "screenshot": "screenshots/cliente-registro-y-reserva.png",
+      "runDirectory": "docs/e2e/runs/cliente-registro-y-reserva-1791261986979"
+    },
+    {
+      "flow": "profesional-ver-citas",
+      "passed": true,
+      "exitCode": 0,
+      "startedAt": "2026-10-06T04:48:14.708Z",
+      "finishedAt": "2026-10-06T04:49:44.759Z",
+      "screenshot": "screenshots/profesional-ver-citas.png",
+      "runDirectory": "docs/e2e/runs/profesional-ver-citas-1791262094708"
+    },
+    {
+      "flow": "cliente-login-y-mis-citas",
+      "passed": true,
+      "exitCode": 0,
+      "startedAt": "2026-10-06T04:49:44.759Z",
+      "finishedAt": "2026-10-06T04:51:16.142Z",
+      "screenshot": "screenshots/cliente-login-y-mis-citas.png",
+      "runDirectory": "docs/e2e/runs/cliente-login-y-mis-citas-1791262184759"
+    }
+  ]
+}

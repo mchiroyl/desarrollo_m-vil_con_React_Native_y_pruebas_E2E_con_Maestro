@@ -1,0 +1,5 @@
+
+> glowbook@1.0.0 verify:artifacts
+> node scripts/verify-artifacts.mjs
+
+Artefactos, enlaces locales, identificadores, capturas PNG y tres reportes E2E verificados.

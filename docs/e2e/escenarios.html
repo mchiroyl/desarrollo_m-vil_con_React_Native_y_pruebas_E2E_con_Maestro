@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Escenarios E2E · Glowbook</title>
+    <style>
+      body {
+        margin: 0;
+        background: #f7f8f4;
+        color: #202a27;
+        font:
+          16px/1.6 system-ui,
+          sans-serif;
+      }
+      header,
+      main,
+      footer {
+        max-width: 1050px;
+        margin: auto;
+        padding: 24px;
+      }
+      h1 {
+        font-size: 36px;
+      }
+      h2 {
+        color: #24594e;
+      }
+      article {
+        background: #fff;
+        border: 1px solid #dce5dc;
+        border-radius: 16px;
+        padding: 24px;
+        margin: 24px 0;
+        display: grid;
+        grid-template-columns: 1fr 320px;
+        gap: 24px;
+      }
+      figure {
+        margin: 0;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 12px;
+        border: 1px solid #dce5dc;
+      }
+      figcaption {
+        font-size: 14px;
+        color: #58645e;
+      }
+      a {
+        color: #24594e;
+      }
+      code {
+        overflow-wrap: anywhere;
+      }
+      dt {
+        font-weight: 700;
+      }
+      dd {
+        margin: 0 0 16px;
+      }
+      .status {
+        padding: 16px;
+        background: #e2f0e8;
+        border-radius: 12px;
+      }
+      @media (max-width: 760px) {
+        article {
+          grid-template-columns: 1fr;
+        }
+        figure {
+          max-width: 360px;
+          margin: auto;
+        }
+      }
+      @media print {
+        article {
+          break-inside: avoid;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Pruebas E2E de Glowbook</h1>
+      <p>
+        Especificaciones Gherkin y flows ejecutables de Maestro, independientes mediante
+        <code>clearState: true</code>.
+      </p>
+      <p class="status">
+        Última ejecución: 5/10/2026, 10:51:16 p. m. (Guatemala). Flows con reporte y captura: 3/3.
+        Dispositivo de esta validación: emulador Pixel 7, Android 14 / API 34. Maestro 2.11.0.
+        <a href="reports/results.json">Resultados JSON</a>.
+      </p>
+    </header>
+    <main>
+      <article>
+        <section>
+          <h2>1. Registro de cliente y reserva</h2>
+          <p><code>.maestro/cliente-registro-y-reserva.yaml</code></p>
+          <dl>
+            <dt>Objetivo</dt>
+            <dd>Crear una cuenta, explorar profesionales y persistir una cita pendiente.</dd>
+            <dt>Precondiciones</dt>
+            <dd>
+              App instalada en Android, datos locales restablecidos y profesional demo con servicio
+              y disponibilidad.
+            </dd>
+          </dl>
+          <ol>
+            <li>Elegir cliente y abrir registro.</li>
+            <li>Ingresar nombre, correo y contraseña de prueba.</li>
+            <li>Filtrar Barbería y abrir Ríos Barber Club.</li>
+            <li>Elegir Corte clásico, el primer día y las 09:00.</li>
+            <li>Revisar y aceptar la reserva; comprobar la cita en Mis citas.</li>
+          </ol>
+          <p>
+            <strong>Resultado esperado:</strong> La cita aparece en la agenda del cliente y
+            permanece guardada en SQLite.
+          </p>
+          <p>
+            <strong>Resultado observado:</strong> Flow completado con código de salida 0 y captura
+            real.
+          </p>
+          <p>
+            <a href="reports/cliente-registro-y-reserva.xml">Reporte JUnit</a> ·
+            <a href="reports/cliente-registro-y-reserva.log">Log de ejecución</a>
+          </p>
+        </section>
+        <figure>
+          <a href="screenshots/cliente-registro-y-reserva.png"
+            ><img
+              src="screenshots/cliente-registro-y-reserva.png"
+              alt="Captura real de Registro de cliente y reserva"
+          /></a>
+          <figcaption>
+            Registro de cliente y reserva: evidencia capturada por Maestro en Android.
+          </figcaption>
+        </figure>
+      </article>
+      <article>
+        <section>
+          <h2>2. Profesional consulta, confirma y cancela citas</h2>
+          <p><code>.maestro/profesional-ver-citas.yaml</code></p>
+          <dl>
+            <dt>Objetivo</dt>
+            <dd>Revisar el detalle y gestionar una cita recibida con confirmación explícita.</dd>
+            <dt>Precondiciones</dt>
+            <dd>Estado local limpio; cuenta profesional@glowbook.app y cita demo pendiente.</dd>
+          </dl>
+          <ol>
+            <li>Iniciar sesión como profesional demo.</li>
+            <li>Encontrar la cita pendiente de Corte clásico.</li>
+            <li>Abrir su detalle y verificar acciones.</li>
+            <li>Confirmar y aceptar el diálogo.</li>
+            <li>
+              Cancelar la cita confirmada, aceptar el diálogo y verificar que ya no hay acciones.
+            </li>
+          </ol>
+          <p>
+            <strong>Resultado esperado:</strong> La cita pasa de pendiente a confirmada y luego a
+            cancelada; el horario queda libre.
+          </p>
+          <p>
+            <strong>Resultado observado:</strong> Flow completado con código de salida 0 y captura
+            real.
+          </p>
+          <p>
+            <a href="reports/profesional-ver-citas.xml">Reporte JUnit</a> ·
+            <a href="reports/profesional-ver-citas.log">Log de ejecución</a>
+          </p>
+        </section>
+        <figure>
+          <a href="screenshots/profesional-ver-citas.png"
+            ><img
+              src="screenshots/profesional-ver-citas.png"
+              alt="Captura real de Profesional consulta, confirma y cancela citas"
+          /></a>
+          <figcaption>
+            Profesional consulta, confirma y cancela citas: evidencia capturada por Maestro en
+            Android.
+          </figcaption>
+        </figure>
+      </article>
+      <article>
+        <section>
+          <h2>3. Cliente inicia sesión y consulta sus citas</h2>
+          <p><code>.maestro/cliente-login-y-mis-citas.yaml</code></p>
+          <dl>
+            <dt>Objetivo</dt>
+            <dd>Consultar reservas y comprobar persistencia de sesión y agenda tras reiniciar.</dd>
+            <dt>Precondiciones</dt>
+            <dd>Estado local limpio; cuenta cliente@glowbook.app con reservas semilla.</dd>
+          </dl>
+          <ol>
+            <li>Abrir una ruta de cliente sin sesión y verificar que se muestra la bienvenida.</li>
+            <li>Ingresar las credenciales demo de cliente.</li>
+            <li>
+              Abrir una ruta profesional y verificar que el cliente permanece en su navegación.
+            </li>
+            <li>Abrir Mis citas.</li>
+            <li>Verificar la reserva demo.</li>
+            <li>Cerrar y abrir la app sin borrar datos.</li>
+            <li>Volver a Mis citas y comprobar que la reserva sigue disponible.</li>
+          </ol>
+          <p>
+            <strong>Resultado esperado:</strong> El cliente conserva su sesión y puede consultar los
+            servicios y estados de sus citas.
+          </p>
+          <p>
+            <strong>Resultado observado:</strong> Flow completado con código de salida 0 y captura
+            real.
+          </p>
+          <p>
+            <a href="reports/cliente-login-y-mis-citas.xml">Reporte JUnit</a> ·
+            <a href="reports/cliente-login-y-mis-citas.log">Log de ejecución</a>
+          </p>
+        </section>
+        <figure>
+          <a href="screenshots/cliente-login-y-mis-citas.png"
+            ><img
+              src="screenshots/cliente-login-y-mis-citas.png"
+              alt="Captura real de Cliente inicia sesión y consulta sus citas"
+          /></a>
+          <figcaption>
+            Cliente inicia sesión y consulta sus citas: evidencia capturada por Maestro en Android.
+          </figcaption>
+        </figure>
+      </article>
+    </main>
+    <footer>
+      <a href="../arquitectura.html">Arquitectura</a> · <a href="../../README.md">README</a>
+      <p>Estas pruebas verifican los escenarios descritos; no garantizan una calificación.</p>
+    </footer>
+  </body>
+</html>

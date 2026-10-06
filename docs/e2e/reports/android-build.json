@@ -1,0 +1,13 @@
+{
+  "verifiedAt": "2026-10-06T04:29:25.1534379Z",
+  "command": "./gradlew.bat assembleDebug -PreactNativeArchitectures=x86_64 --max-workers=1 '-Dorg.gradle.jvmargs=-Xmx1536m -XX:MaxMetaspaceSize=512m' '-Dorg.gradle.parallel=false'",
+  "exitCode": 0,
+  "result": "BUILD SUCCESSFUL in 11m 46s",
+  "actionableTasks": 453,
+  "applicationId": "com.glowbook.app",
+  "variant": "debug",
+  "architecture": "x86_64",
+  "apkBytes": 88525540,
+  "apkSha256": "D77359ECB6E6013DEE10A113CA8C10932FEFE06946DC5D7192A490BE31BA24DE",
+  "adbInstall": "Success"
+}

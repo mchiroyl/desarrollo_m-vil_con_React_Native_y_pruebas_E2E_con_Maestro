@@ -1,0 +1,24 @@
+
+> glowbook@1.0.0 test:unit
+> node --experimental-strip-types --test tests/unit/*.test.mjs
+
+✔ seed is idempotent and refreshes future availability after time passes (12.059ms)
+✔ client cannot overlap appointments with different professionals (4.8612ms)
+✔ confirmed appointment can be cancelled only by its professional (3.0445ms)
+✔ unauthenticated writes and impersonation are rejected (3.0193ms)
+✔ registration validates email and replaces a previous local session atomically (3.9231ms)
+✔ a successful booking persists and cancelled slots become available again (4.7202ms)
+✔ migration preserves session, users and appointment statuses (4.2177ms)
+✔ session and booking survive closing and reopening the SQLite file (26.5716ms)
+✔ new professional has a bookable demo service and availability (6.9434ms)
+✔ SQLite failures roll back writes and keep their actual cause (2.7342ms)
+✔ detects overlapping appointment durations in either order (1.0353ms)
+✔ allows appointments whose end and start times touch (0.1718ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 247.0869
