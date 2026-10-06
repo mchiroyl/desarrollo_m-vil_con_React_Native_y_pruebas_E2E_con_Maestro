@@ -44,7 +44,16 @@ La última ejecución E2E registrada terminó el 5 de octubre de 2026 a las 22:5
 Evidencia detallada: [verificacion.md](verificacion.md),
 [resultados E2E](e2e/reports/results.json) y [resultados de calidad](e2e/reports/quality-results.json).
 
-## Pendiente para cerrar la entrega académica
+## Documentación lista para entregar
+
+- [x] Word local `docs/Pruebas E2E en Aplicaciones Móviles.docx` completado en seis páginas y revisado visualmente.
+- [x] Carátula y enlace originales conservados; carátula comprobada sin cambios.
+- [x] Word incluye resumen, enlaces a los HTML, instrucciones para abrirlos, arquitectura con diagrama,
+      tres escenarios Gherkin, tres capturas reales y resultados de Maestro con enlaces a YAML y JUnit.
+- [x] Alcance móvil y entorno Android debug declarados en el Word.
+      El documento está preparado para adjuntarlo a la plataforma; se conserva localmente y no está publicado en GitHub.
+
+## Publicación y entrega académica
 
 - [x] Proyecto publicado en la rama `main` del [repositorio público de Glowbook](https://github.com/mchiroyl/desarrollo_m-vil_con_React_Native_y_pruebas_E2E_con_Maestro).
       Push verificado contra el commit local y acceso público comprobado mediante la API de GitHub sin autenticación.
@@ -57,8 +66,8 @@ Evidencia detallada: [verificacion.md](verificacion.md),
       El usuario indicó el repositorio de destino; las capturas no especifican el formato de envío académico.
 - [ ] Confirmar que el evaluador pueda descargar el repositorio y abrir los HTML en su equipo.
       El acceso público y los enlaces locales funcionan; no se comprobó el equipo del evaluador.
-- [ ] Incluir una aclaración de alcance en el envío: «Se implementó una aplicación móvil nativa
-      con React Native y Expo, conforme al diagrama; el objetivo escrito menciona una aplicación web».
+- [x] Incluir la aclaración de alcance móvil en el documento de entrega, conforme al diagrama.
+      El objetivo escrito de la consigna menciona una aplicación web; la implementación y la evidencia son móviles.
 - [ ] Revisar cualquier rúbrica o indicación adicional del docente que no aparezca en estas capturas.
 
 Fecha límite mostrada en la captura: lunes 5 de octubre de 2026, 23:59.
@@ -73,6 +82,7 @@ Estos límites están documentados y no se presentan como verificados. No se req
 la app a web ni añadir funciones ajenas al diagrama para cubrir los requisitos visibles.
 
 **Conclusión:** los requisitos técnicos visibles del diagrama están implementados y tienen
-evidencia y están publicados en GitHub. Falta verificar la entrega formal, la apertura de los HTML
+evidencia y están publicados en GitHub. El Word de entrega está completado y revisado.
+Falta verificar la entrega formal, la apertura de los HTML
 en el equipo del evaluador y cualquier criterio adicional.
 No es posible garantizar 3/3 puntos sin la rúbrica completa y la evaluación del docente.
