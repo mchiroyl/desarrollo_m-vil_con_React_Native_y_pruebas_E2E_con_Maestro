@@ -46,12 +46,17 @@ Evidencia detallada: [verificacion.md](verificacion.md),
 
 ## Pendiente para cerrar la entrega académica
 
+- [x] Proyecto publicado en la rama `main` del [repositorio público de Glowbook](https://github.com/mchiroyl/desarrollo_m-vil_con_React_Native_y_pruebas_E2E_con_Maestro).
+      Push verificado contra el commit local y acceso público comprobado mediante la API de GitHub sin autenticación.
+- [x] Archivos publicados comprobados: tres Gherkin, tres flows Maestro, dos HTML y tres capturas reales, junto con código y reportes.
+      Para consultar los HTML, descargar o clonar el repositorio completo y abrirlos conservando sus carpetas de recursos.
+
 - [ ] Presentar la tarea y comprobar el acuse o estado de envío de la plataforma.
       La captura muestra «En progreso / Siguiente: Presentar tarea»; no se verificó el estado actual.
 - [ ] Confirmar si el docente acepta el enlace de GitHub o exige además un ZIP u otro formato.
       El usuario indicó el repositorio de destino; las capturas no especifican el formato de envío académico.
-- [ ] Comprobar que el evaluador pueda acceder al código, a los dos HTML y a sus carpetas de capturas/reportes.
-      Los enlaces locales sí funcionan; no se comprobó acceso desde el equipo del evaluador.
+- [ ] Confirmar que el evaluador pueda descargar el repositorio y abrir los HTML en su equipo.
+      El acceso público y los enlaces locales funcionan; no se comprobó el equipo del evaluador.
 - [ ] Incluir una aclaración de alcance en el envío: «Se implementó una aplicación móvil nativa
       con React Native y Expo, conforme al diagrama; el objetivo escrito menciona una aplicación web».
 - [ ] Revisar cualquier rúbrica o indicación adicional del docente que no aparezca en estas capturas.
@@ -63,12 +68,11 @@ Las capturas indican un valor total de tres puntos, sin un desglose de criterios
 
 - [ ] Revisar los 29 avisos transitivos de dependencias antes de un uso en producción.
 - [ ] Validar iOS, hardware real, TalkBack, tablets y build release si se amplía ese alcance.
-- [ ] Publicar el proyecto en el repositorio público indicado por el usuario y verificar el push.
-      Destino: [repositorio de Glowbook](https://github.com/mchiroyl/desarrollo_m-vil_con_React_Native_y_pruebas_E2E_con_Maestro).
 
 Estos límites están documentados y no se presentan como verificados. No se requiere convertir
 la app a web ni añadir funciones ajenas al diagrama para cubrir los requisitos visibles.
 
 **Conclusión:** los requisitos técnicos visibles del diagrama están implementados y tienen
-evidencia. Falta verificar la entrega formal, su acceso y cualquier criterio adicional.
+evidencia y están publicados en GitHub. Falta verificar la entrega formal, la apertura de los HTML
+en el equipo del evaluador y cualquier criterio adicional.
 No es posible garantizar 3/3 puntos sin la rúbrica completa y la evaluación del docente.
